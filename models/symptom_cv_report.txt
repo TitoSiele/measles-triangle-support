@@ -1,0 +1,28 @@
+
+BASELINE (current settings)
+  accuracy           0.958 +/- 0.009  (folds: [0.969, 0.952, 0.955, 0.946, 0.969])
+  macro_f1           0.958 +/- 0.009  (folds: [0.969, 0.952, 0.955, 0.946, 0.969])
+  measles_recall     0.999 +/- 0.002  (folds: [1.0, 1.0, 0.994, 1.0, 1.0])
+  measles_precision  1.000 +/- 0.000  (folds: [1.0, 1.0, 1.0, 1.0, 1.0])
+
+TUNED (nested CV, honest estimate)
+  accuracy           0.960 +/- 0.009  (folds: [0.972, 0.952, 0.954, 0.951, 0.969])
+  macro_f1           0.960 +/- 0.009  (folds: [0.972, 0.952, 0.954, 0.951, 0.969])
+  measles_recall     0.997 +/- 0.005  (folds: [1.0, 1.0, 0.988, 1.0, 1.0])
+  measles_precision  1.000 +/- 0.000  (folds: [1.0, 1.0, 1.0, 1.0, 1.0])
+
+Best params: {'n_estimators': 200, 'min_samples_split': 5, 'min_samples_leaf': 4, 'max_features': 'sqrt', 'max_depth': None, 'class_weight': 'balanced'}
+
+Top 10 features by importance:
+  age_years                      0.199
+  fever_temp_c                   0.168
+  rash_onset_day                 0.153
+  rash_present                   0.104
+  itchy_rash                     0.073
+  fever_duration_days            0.062
+  sore_throat                    0.047
+  koplik_spots                   0.040
+  cephalocaudal_spread           0.035
+  lymphadenopathy                0.033
+
+NOTE: data is synthetic, so these scores measure agreement with the generator's rules, not performance on real patients. Real validation needs real clinical data.

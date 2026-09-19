@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Measles Triage Support Tool</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 700px; margin: 40px auto; padding: 0 20px; background: #f7f7fa; color: #222; }
+  h1 { color: #b3261e; margin-bottom: 4px; }
+  .disclaimer { background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 14px 16px; margin-bottom: 20px; font-size: 14px; line-height: 1.5; }
+  .disclaimer strong { color: #7a5c00; }
+  .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  label { display: block; margin-top: 12px; font-weight: 600; font-size: 14px; }
+  input[type="number"] { width: 100%; padding: 8px; margin-top: 4px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+  .sym-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; }
+  .sym-row label { margin: 0; flex: 1; font-weight: 500; }
+  .sym-row select { width: 130px; padding: 6px; border: 1px solid #ccc; border-radius: 6px; background: white; }
+  .sym-row select.answered { border-color: #3949ab; background: #f1f3fb; }
+  .hint { font-size: 13px; color: #555; margin: 4px 0 0 0; line-height: 1.5; }
+  button { margin-top: 20px; background: #b3261e; color: white; border: none; padding: 12px 20px; border-radius: 8px; font-size: 16px; cursor: pointer; width: 100%; }
+  button:hover { background: #8f1e18; }
+  button.secondary { background: #555; margin-top: 10px; }
+  button.secondary:hover { background: #333; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+  #result { margin-top: 20px; padding: 16px; border-radius: 8px; display: none; }
+  #result.flag-high { background: #fdecea; border: 1px solid #b3261e; }
+  #result.flag-moderate { background: #fff8e1; border: 1px solid #ffb300; }
+  #result.flag-low { background: #eafaf0; border: 1px solid #2e7d32; }
+  #result.flag-refer { background: #e8eaf6; border: 1px solid #3949ab; }
+  .prob-bar { background: #eee; border-radius: 6px; height: 10px; margin-top: 4px; overflow: hidden; }
+  .prob-fill { background: #b3261e; height: 100%; }
+  .confidence-tag { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+  .conf-High { background: #d4edda; color: #155724; }
+  .conf-Moderate { background: #fff3cd; color: #7a5c00; }
+  .conf-Low { background: #f8d7da; color: #721c24; }
+  .conf-Insufficient { background: #dfe3f7; color: #283593; margin-left: 0; }
+  small { color: #666; }
+</style>
+</head>
+<body>
+
+<h1>Measles Triage Support Tool</h1>
+
+<div class="disclaimer">
+  <strong>Not a diagnosis.</strong> This tool provides decision <strong>support</strong> only, based on a prototype model with limited real-world validation (especially the image classifier, tested on very few real measles photos). It is meant to assist — never replace — assessment by a qualified clinician. Always confirm findings with proper clinical evaluation and testing.
+</div>
+
+<div class="card">
+  <h3>Symptom Checklist</h3>
+  <p class="hint"><strong>Unknown is not the same as No.</strong> Leave a finding as Unknown (or a number blank) if it was not checked or not recorded. If too many key findings are unknown, the tool will not give a score and will recommend clinical assessment instead.</p>
+
+  <label for="fever_temp_c">Fever temperature (°C)</label>
+  <input type="number" id="fever_temp_c" step="0.1" min="30" max="45" placeholder="Unknown">
+
+  <label for="fever_duration_days">Fever duration (days)</label>
+  <input type="number" id="fever_duration_days" step="1" min="0" max="60" placeholder="Unknown">
+
+  <label for="rash_onset_day">Rash onset day (days after fever started; 0 = same day)</label>
+  <input type="number" id="rash_onset_day" step="1" min="0" max="30" placeholder="Unknown">
+
+  <label for="age_years">Age (years)</label>
+  <input type="number" id="age_years" step="0.1" min="0" max="120" placeholder="Unknown">
+
+  <div id="yn-fields"></div>
+</div>
+
+<div class="card">
+  <h3>Rash Photo (optional)</h3>
+  <input type="file" id="imageFile" accept="image/*">
+  <p><small>Image assessment has limited validation — treat as a minor supporting signal only. A photo alone will not produce a triage result.</small></p>
+</div>
+
+<button id="runBtn" onclick="runPrediction()">Run Triage Assessment</button>
+<button class="secondary" onclick="resetForm()">New patient / clear form</button>
+
+<div id="result" class="card"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

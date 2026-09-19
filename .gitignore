@@ -1,0 +1,17 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.dist/
+
+# Secrets and OS files
+.env
+.DS_Store
+
+# Raw datasets: the Kaggle MSLD v2.0 images have their own license, so cite them in the README instead of redistributing
+data/raw/
+
+# Training checkpoints and superseded models
+models/image_classifier/best_model.keras
+models/symptom_classifier_tuned.joblib
