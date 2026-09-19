@@ -15,3 +15,4 @@ data/raw/
 # Training checkpoints and superseded models
 models/image_classifier/best_model.keras
 models/symptom_classifier_tuned.joblib
+models/symptom_classifier.joblib
