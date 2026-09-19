@@ -24,7 +24,7 @@ app = FastAPI(title="Measles Triage Support API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://127.0.0.1:8000", "http://localhost:8000"],  # TODO: add Render URL once deployed
     allow_methods=["*"],
     allow_headers=["*"],
 )
