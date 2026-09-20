@@ -16,3 +16,7 @@ data/raw/
 models/image_classifier/best_model.keras
 models/symptom_classifier_tuned.joblib
 models/symptom_classifier.joblib
+data/processed/combined_images/
+models/image_classifier_combined/best_model.keras
+monkeyset.zip
+monkeyset/

@@ -39,8 +39,8 @@ if os.path.exists(BUNDLE_PATH):
 else:
     print("WARNING: models/symptom_bundle_v2.joblib not found. Run src/train_symptom_model_v2.py.")
 
-IMAGE_MODEL_PATH = "models/image_classifier/final_model.keras"
-IMAGE_CLASS_NAMES_PATH = "models/image_classifier/class_names.txt"
+IMAGE_MODEL_PATH = "models/image_classifier_combined/final_model.keras"
+IMAGE_CLASS_NAMES_PATH = "models/image_classifier_combined/class_names.txt"
 
 image_model = None
 image_class_names = None
